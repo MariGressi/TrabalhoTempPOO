@@ -6,8 +6,8 @@ public class Usuario{
     private char tipoUsuario;
     private String Nome;
     private int Matricula;
-    static ArrayList <Professor> listaprof;
-    static ArrayList<Aluno> listaaluno;
+    private ArrayList <Professor> listaprof;
+    private ArrayList<Aluno> listaaluno;
 
 
     //Getters
@@ -52,20 +52,20 @@ public class Usuario{
         listaaluno = new ArrayList<>();
     }
 
-    public static  void addProfessor(Professor p){
+    public  void addProfessor(Professor p){
         p.setUser(p);
-        listaprof.add(p);
+        this.listaprof.add(p);
         
     }
 
-    public static void addaluno(Aluno a){
+    public void addaluno(Aluno a){
         a.setUser(a);
-        listaaluno.add(a);
+        this.listaaluno.add(a);
     }
 
-    public static void imprimeDadosAlunos(){
+    public void imprimeDadosAlunos(){
 
-        if(listaaluno.size()>0){
+        if(this.listaaluno.size()>0){
            for(int i=0; i<listaaluno.size();i++){
             System.out.println("Dados do Aluno: ");
             System.out.println("Nome: " + listaaluno.get(i).getNome());
@@ -79,9 +79,9 @@ public class Usuario{
         }   
      }
     
-     public static void imprimeDadosProfessores(){
+     public  void imprimeDadosProfessores(){
 
-        if(listaprof.size()>0){
+        if(this.listaprof.size()>0){
            for(int i=0; i<listaprof.size();i++){
             System.out.println("Dados do Professor: ");
             System.out.println("Nome: " + listaprof.get(i).getNome());

@@ -50,7 +50,7 @@ public class Reserva extends Sala{
         this.sala = sala;
     }
 
-    public Reserva(Professor professor,int numSala, int numReservaA, int dia){
+    public Reserva(Professor professor, int dia){
         Calendar Data = new GregorianCalendar(2022,Calendar.OCTOBER,dia,18,12);
         setNumSala(numSala);
         setProfessor(professor);

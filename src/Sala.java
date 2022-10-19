@@ -1,17 +1,18 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Scanner;
 
 public class Sala {
     //Atributos
     private static int maximoReserva =20;
-    private static int numReserva =1;
-    private int  numSala;
+    private static int numReserva =0;
+    private int  numSala=1;
     private char tipoSala;
-    static ArrayList<SalaConvencional> listaconvencional;
-    static ArrayList<SalaLaboratorio> listalaboratorio;
-    static ArrayList<Reserva>listareserva;
+    private ArrayList<SalaConvencional> listaconvencional;
+    private ArrayList<SalaLaboratorio> listalaboratorio;
+    private ArrayList<Reserva>listareservac;
+    private ArrayList<Reserva>listareserval;
 
 
 
@@ -27,14 +28,17 @@ public class Sala {
     public int getNumSala() {
         return numSala;
     }
-    public static ArrayList<SalaConvencional> getListaconvencional() {
+    public ArrayList<SalaConvencional> getListaconvencional() {
         return listaconvencional;
     }
-    public static ArrayList<SalaLaboratorio> getListalaboratorio() {
+    public ArrayList<SalaLaboratorio> getListalaboratorio() {
         return listalaboratorio;
     }
-    public static ArrayList<Reserva> getListareserva() {
-        return listareserva;
+    public ArrayList<Reserva> getListareservac() {
+        return listareservac;
+    }
+    public ArrayList<Reserva> getListareserval() {
+        return listareserval;
     }
     
 
@@ -50,7 +54,8 @@ public class Sala {
     public Sala(){
         listaconvencional = new ArrayList<>();
         listalaboratorio = new ArrayList<>();
-        listareserva = new ArrayList<>();
+        listareservac = new ArrayList<>();
+        listareserval = new ArrayList<>();
     }
 
     public Sala(char tipoSala, int numSala){
@@ -58,24 +63,25 @@ public class Sala {
         setnumSala(numSala);
         listaconvencional = new ArrayList<>();
         listalaboratorio = new ArrayList<>();
-        listareserva = new ArrayList<>();
+        listareservac = new ArrayList<>();
+        listareserval = new ArrayList<>();
     }
 
     private void setnumSala(int numSala2) {
     }
-    public static void addSala(SalaConvencional c){
+    public void addSala(SalaConvencional c){
         c.setSala(c);
-        listaconvencional.add(c);
+        this.listaconvencional.add(c);
     }
 
-    public static void addLaboratorio(SalaLaboratorio l){
+    public void addLaboratorio(SalaLaboratorio l){
         l.setSala(l);
-        listalaboratorio.add(l);
+        this.listalaboratorio.add(l);
     }
 
-    public static void imprimeDadosSalaConvencional(){
+    public void imprimeDadosSalaConvencional(){
 
-        if(listaconvencional.size()>0){
+        if(this.listaconvencional.size()>0){
            for(int i=0; i<listaconvencional.size();i++){
             System.out.println("Dados da Sala: ");
             System.out.println("Numero da sala: " + listaconvencional.get(i).getNumSala());
@@ -88,9 +94,9 @@ public class Sala {
         }   
      }
 
-     public static void imprimeDadosLaboratorios(){
+     public  void imprimeDadosLaboratorios(){
 
-        if(listalaboratorio.size()>0){
+        if(this.listalaboratorio.size()>0){
            for(int i=0; i<listalaboratorio.size();i++){
             System.out.println("Dados da Sala: ");
             System.out.println("Numero da sala: " + listalaboratorio.get(i).getNumSala());
@@ -104,34 +110,63 @@ public class Sala {
      }
 
     
-    public static void addreserva(Reserva r){
-
-
-        if(listareserva.size()<maximoReserva){
+    public void addreserva(Reserva r){
+    
+        System.out.println("Qual tipo de sala você deseja reservar? Digite C para sala comum e L para laboratorio.");
+        Scanner entrada = new Scanner(System.in);
+        tipoSala=entrada.next().charAt(0);
+        if(tipoSala=='C'){
+            if(this.listareservac.size()<maximoReserva){
             r.setSala(r);
-            listareserva.add(r);
+            listareservac.add(r);
+            numReserva++;
+            System.out.println("Sala Reservada!");
+            }
+        }
+        if(tipoSala=='L'){
+
+           if(this.listareserval.size()<maximoReserva){
+            r.setSala(r);
+            listareserval.add(numSala, r);
+            numReserva++;
             System.out.println("Sala Reservada");
+           }
         }
-        else{
-            System.out.println("Essa sala não está disponivel");
+        if(tipoSala!='C' & tipoSala!='L'){
+            System.out.println("Sala não identificada");
         }
+        entrada.close();
     }
 
-    public static void imprimeDadosdasReservas(){
+    public void imprimeReservassala(){
 
-        if(listareserva.size()>0){
-           for(int i=0; i<listareserva.size();i++){
+        if(this.listareservac.size()>0){
+           for(int i=0; i<listareservac.size();i++){
             System.out.println("Reservas");
-            listareserva.get(i).getData();
-            System.out.println("Sala: " + listareserva.get(i).getNumSala()+ "Professor: "+listareserva.get(i).getProfessor().getNome()+"Data: "+listareserva.get(i).getData().getTime());
+            listareservac.get(i).getData();
+            System.out.println("Sala: " + listareservac.get(i).getNumSala()+ "Professor: "+listareservac.get(i).getProfessor().getNome()+"Data: "+listareservac.get(i).getData().getTime());
            }
 
         }
         else{
-            System.out.println("Não há reservas!");
+            System.out.println("Não há salas reservadas!");
         }   
      }
     
+     public void imprimeReservaslab(){
+
+        if(this.listareserval.size()>0){
+           for(int i=0; i<listareserval.size();i++){
+            System.out.println("Reservas");
+            listareservac.get(i).getData();
+            System.out.println("Sala: " + listareserval.get(i).getNumSala()+ "Professor: "+listareserval.get(i).getProfessor().getNome()+"Data: "+listareserval.get(i).getData().getTime());
+           }
+
+        }
+        else{
+            System.out.println("Não há laboratorios reservados!");
+        }   
+     }
 
     
 
